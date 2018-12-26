@@ -1,0 +1,40 @@
+# Databricks notebook source
+def saludo(num):
+  for i in range(num):
+    print("Hola")
+  return
+
+saludo(5)
+diamonds = spark.read.csv("/databricks-datasets/Rdatasets/data-001/csv/ggplot2/diamonds.csv", header="true", inferSchema="true")
+from pyspark.sql.functions import avg
+  
+display(diamonds.select("color","price").groupBy("color").agg(avg("price")))
+
+
+# COMMAND ----------
+
+aa = diamonds.select("color","price").groupBy("color").agg(avg("price"))
+print(aa.sum())
+print(aa['avg(price)'])
+
+
+# COMMAND ----------
+
+import pandas as pd
+import numpy as np
+
+df = pd.DataFrame({'uno': [1, 2, 3], 'dos': [4, 5, 6], 'tres': [7, 8, 9]}, index=['x', 'y', 'z'])
+
+# Iteración por columnas del DataFrame:
+for col in df:
+	print(df[col].mean())
+	
+print()
+
+# Iteración por filas del DataFrame:
+for indice_fila, fila in df.iterrows():
+	print(indice_fila)
+	print(fila)
+
+# COMMAND ----------
+
